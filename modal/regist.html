@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký ngay | Shopee Việt Nam | Mua Và Bán Trên Ứng Dụng Di Động Hoặc Webssite</title>
+    <link rel="icon" href="https://logospng.org/download/shopee/logo-shopee-icon-1024.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="./assets/js/modal.js"></script>
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-free-6.5.2-web/fontawesome-free-6.5.2-web/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="/assets/js/modal.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+            <div class="auth-form">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng ký</h3>
+                        <a href="/modal/login.html" class="auth-form__switch-btn">Đăng nhập</a>
+                    </div>
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input type="email" id="reg-email" class="auth-form__input" placeholder="Email của bạn" required>
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="password" id="reg-password" class="auth-form__input" placeholder="Nhập mật khẩu" required>
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="password" id="reg-confirm-password" class="auth-form__input" placeholder="Nhập lại mật khẩu" required>
+                        </div>
+                    </div>
+                    <div class="auth-form__aside">
+                        <p class="auth-form__policy-text">
+                            Bằng việc đăng ký, bạn đã đồng ý với Shopee về
+                            <a href="https://help.shopee.vn/portal/4/article/77243" class="auth-form__text-link">Điều khoản dịch vụ</a> &
+                            <a href="https://help.shopee.vn/portal/4/article/77244" class="auth-form__text-link">Chính sách bảo mật</a>
+                        </p>
+                    </div>
+                    <div class="auth-form__controls">
+                        <button class="btn auth-form__controls-back btn--normal">TRỞ LẠI</button>
+                        <button class="btn btn--primary" id="reg-button">ĐĂNG KÝ</button>
+                    </div>
+                </div>
+
+                <div class="auth-form__socials">
+                    <a href="" class="btn auth-form__socials--facebook btn--size-s btn--with-icon">
+                        <i class="auth-form__socials-icon fa-brands fa-square-facebook"></i>
+                        <span class="auth-form__socials-title">
+                            Kết nối với Facebook
+                        </span>
+                    </a>
+                    <a href="" class="btn auth-form__socials--google btn--size-s btn--with-icon">
+                        <i class="auth-form__socials-icon fa-brands fa-google"></i>
+                        <span class="auth-form__socials-title">
+                            Kết nối với Google
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('reg-button').addEventListener('click', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Mật khẩu và xác nhận mật khẩu không khớp!');
+                return;
+            }
+
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                alert('Đăng ký thành công!');
+                window.location.href = '/modal/login.html';
+            } else {
+                alert('Đăng ký thất bại!');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 .header {
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
     z-index: 2;
@@ -507,13 +507,32 @@
     align-items: center;
 }
 
+.header__mobile-search {
+    padding: 0 12px;
+    display: none;
+}
+
+.header__mobile-search-icon {
+    font-size: 2.6rem;
+    color: var(--white-color);
+
+}
+
 .header__logo {
     width: 200px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .header__logo-link {
     color: transparent;
     text-decoration: none;
+    display: block;
+    line-height: 0;
+}
+
+.header__search-checkbox:checked ~ 
+.header__search{
+    display: flex;
 }
 
 .header__logo-img {
@@ -540,6 +559,7 @@
     display: inline-block;
     padding: 0 12px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .header__cart-icon {
@@ -577,7 +597,7 @@
 .header__cart-list-item {
     padding-left: 0;
     list-style: none;
-    height: 56vh;
+    max-height: 56vh;
     overflow-y: auto;
 }
 
@@ -850,9 +870,62 @@
     margin-left: auto;
 }
 
+/* Header__sort-bar */
+.header__sort-bar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    height: var(--header-sort-bar-height);
+    background-color: var(--white-color);
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    display: none;
+}
+
+.header__sort-item {
+    flex: 1;
+}
+
+.header__sort-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    display: block;
+    height: 100%;
+    text-align: center;
+    line-height: var(--header-sort-bar-height);
+    position: relative;
+}
+
+.header__sort-link::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 60%;
+    border-left: 1px solid #e5e5e5;
+    transform: translateY(-50%);
+}
+
+.header__sort-item--active .header__sort-link {
+    color: var(--primary-color);
+}
+
+.header__sort-item:first-child 
+.header__sort-link::before {
+    display: none;
+}
+
 /* App container */
+.app {
+    overflow: hidden;
+}
+
 .app__container {
-    margin-top: 75px;
     background-color: #f5f5f5;
 }
 
@@ -861,6 +934,7 @@
 }
 
 .category {
+    margin-top: 40px;
     border-radius: 2px;
     background-color: var(--white-color);
 }
@@ -932,8 +1006,66 @@
     top: -1px;
 }
 
+/* Mobile category */
+.mobile-category {
+    display: none;
+}
+
+.mobile-category__list {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    max-width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: auto;
+}
+
+.mobile-category__list::-webkit-scrollbar {
+    display: none;
+}
+
+.mobile-category__item {
+    flex-shrink: 0;
+    margin-right: 10px;
+
+}
+
+.mobile-category__item:nth-last-of-type(3n + 1) 
+.mobile-category__link {
+    background-color: #87afd8;
+}
+
+.mobile-category__item:nth-last-of-type(3n + 2) 
+.mobile-category__link {
+    background-color: #76c9bd;
+}
+
+.mobile-category__item:nth-last-of-type(3n + 3) 
+.mobile-category__link {
+    background-color: #88cf81;
+}
+
+.mobile-category__link {
+    --line-height: 2rem;
+    text-decoration: none;
+    color: var(--white-color);
+    font-size: 1.4rem;
+    line-height: var(--line-height);
+    height: calc(var(--line-height) * 2);
+    overflow: hidden;
+    text-align: center;
+    width: 110px;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    border-radius: 4px;
+    font-weight: 300;
+}
+
 /* Home sort + filter*/
 .home-filter {
+    margin: 32px 0 10px;
     display: flex;
     align-items: center;
     border-radius: 2px;
@@ -1199,6 +1331,7 @@ i.home-product-item__like-icon-fill {
 
 .home-product__pagination {
     margin: 48px 0 32px 0;
+    padding-left: 0;
 }
 
 /* Footer */
@@ -1433,6 +1566,7 @@ i.home-product-item__like-icon-fill {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     transition: opacity 0.3s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .chat-icon {
@@ -1460,6 +1594,19 @@ i.home-product-item__like-icon-fill {
     flex-direction: column;
     z-index: 3;
 }
+
+#chat-box {
+    cursor: default !important;
+}
+
+#chat-button {
+    cursor: pointer;
+}
+
+#chat-button.hidden {
+    pointer-events: none;
+}
+
 
 .chat-box-header {
     background-color: var(--primary-color);

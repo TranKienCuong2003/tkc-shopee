@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "RƯỢU VANG PHÁP",
         "RƯỢU VANG"
     ]
-    
 
     function showSearchHistory() {
         const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -232,6 +231,37 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.carousel');
+    const items = document.querySelectorAll('.carousel-item');
+    const nextButton = document.querySelector('.carousel-control.next');
+    const prevButton = document.querySelector('.carousel-control.prev');
+    let currentIndex = 0;
+
+    function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    nextButton.addEventListener('click', function() {
+        if (currentIndex < items.length - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateCarousel();
+    });
+
+    prevButton.addEventListener('click', function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = items.length - 1;
+        }
+        updateCarousel();
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
     var chatButton = document.getElementById('chat-button');
     var chatBox = document.getElementById('chat-box');
     var chatBoxClose = document.getElementById('chat-box-close');
@@ -242,11 +272,13 @@ document.addEventListener('DOMContentLoaded', function() {
     chatButton.addEventListener('click', function() {
         chatBox.style.display = 'flex';
         chatButton.style.opacity = '0';
+        chatButton.classList.add('hidden');
     });
 
     chatBoxClose.addEventListener('click', function() {
         chatBox.style.display = 'none';
         chatButton.style.opacity = '1';
+        chatButton.classList.remove('hidden');
     });
 
     sendButton.addEventListener('click', function() {
@@ -260,11 +292,5 @@ document.addEventListener('DOMContentLoaded', function() {
             chatBoxBody.scrollTop = chatBoxBody.scrollHeight;
         }
     });
-
-    // Add this to prevent pointer cursor on chat-box
-    chatBox.addEventListener('mousemove', function(e) {
-        if (e.target === chatBox) {
-            chatBox.style.cursor = 'default';
-        }
-    });
 });
+
